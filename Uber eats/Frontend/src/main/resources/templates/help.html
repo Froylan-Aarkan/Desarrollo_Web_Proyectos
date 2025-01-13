@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ayuda - FEIFood</title>
+    <link rel="stylesheet" href="styles/sesion.css">
+    <link rel="stylesheet" href="styles/help.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <a href="#" onclick="getMain()" class="logo"><i class="fas fa-utensils"></i> FEIFood</a>
+        
+        <h1>Mi Perfil</h1>
+        
+        <div class="user-menu">
+            <i class="fas fa-user" onclick="toggleUserMenu()"></i>
+            <div class="dropdown-menu" id="userMenu">
+                <a href="#" onclick="profile()"> <i style="color:white; padding: 5%;" class="fas fa-user-circle"></i> Mi perfil</a>
+                <a href="#" onclick="logout()"> <i style="color:white; padding: 5%;" class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
+            </div>
+        </div>
+    </header>
+
+    <section id="help-info" class="help-container">
+        <div class="help-card">
+            <img src="img/logo.png" alt="Foto de sitio" id="logo-picture" title="Imagen de usuario">
+            <h2>¡FEIFood agradece su preferencia!</h2>
+            <h3>Para posibles aclaraciones o sugerencias en cuanto al servicio puede comunicarse por medio del correo debajo</h3>
+            
+            <p class="correo-fei">  feifood@uv.mx  </p>
+        </div>
+    </section>
+
+    <script src="js/sesion.js"></script>
+</body>
+</html>
