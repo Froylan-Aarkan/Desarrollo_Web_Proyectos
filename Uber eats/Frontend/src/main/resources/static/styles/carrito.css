@@ -1,0 +1,143 @@
+.cart-item {
+    border-bottom: 1px solid #ccc;
+    padding: 5px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cart-item span {
+    margin-right: 10px; 
+}
+
+.product-name {
+    flex: 1;
+}
+
+.product-price {
+    margin-right: 20px;
+}
+
+.quantity-selector {
+    display: flex;
+    align-items: center;
+}
+
+.quantity-selector button {
+    background-color: #6A1B9A;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.quantity-selector button:hover {
+    background-color: #4fa3d1;
+}
+
+.quantity-selector span {
+    margin: 0 10px;
+    font-size: 18px;
+}
+
+.remove-btn{
+    background: #6A1B9A;
+    padding: 1px 10px; 
+    color: white;
+    font-size: 30px;
+    cursor: pointer;
+    border-radius: 5px; 
+    transition: background-color 0.3s ease; 
+}
+
+.remove-btn:hover {
+    background-color: red;
+}
+
+.food-container {
+    justify-content:space-between;
+    padding: 40px 80px;
+}
+
+.food-item {
+    width: 200px;
+    margin: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.food-item img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.food-item h3 {
+    margin: 10px 0;
+    font-size: 18px;
+    color: #333;
+}
+
+.food-item p {
+    color: #777;
+    font-size: 14px;
+}
+
+.food-item .price {
+    font-size: 16px;
+    color: #ff6f61;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+#cart-total {
+    text-align: center; 
+    padding: 10px;
+    background-color: #e0e0e0; 
+    border-radius: 8px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    position: fixed; 
+    bottom: 0; 
+    left: 50%; 
+    transform: translateX(-50%); 
+    width: 100%; 
+    z-index: 9999; 
+    max-width: 400px;
+}
+
+#cart-total h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px; 
+}
+
+#checkout-button {
+    background-color: #6A1B9A; 
+    color: white; 
+    font-size: 18px; 
+    padding: 12px 25px; 
+    border: none; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    transition: background-color 0.3s ease; 
+    width: 100%; 
+    max-width: 250px;
+    margin: 0 auto;
+}
+
+#checkout-button:hover {
+    background-color: #4fa3d1; 
+}
+
+.pre-cart-food {
+    border-radius: 50%; /* Hace la imagen circular */
+    width: 50px; /* Ajusta el tamaño según sea necesario */
+    height: 50px;
+    margin-bottom: 20px;
+}

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Página principal</title>
+        <link rel="stylesheet" href="styles/main.css">
+        <link rel="stylesheet" href="styles/sesion.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+        <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.css" />
+        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+        <script src="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    </head>
+    <body>
+        <header>
+            <a href="#" class="logo"><i class="fas fa-utensils"></i> FEIFood</a>
+            
+            <div id="mapOptions">
+                <button onclick="showMap()" id="locationButton">
+                    <i class="fas fa-map-marker-alt map-color"></i> Seleccionar ubicación
+                </button>
+                <div id="coordinates" style="display: none;"> 
+                    <p id="latLngText"></p>
+                </div>
+            </div>
+            
+            <input type="text" id="searchBar" placeholder="Buscar alimentos o restaurantes..." oninput="filterItems()">
+            
+            <div class="cart">
+                <i class="fas fa-shopping-cart" onclick="goToCart()"></i>
+            </div>
+
+            <div class="user-menu">
+                <i class="fas fa-user" onclick="toggleUserMenu()"></i>
+                <div class="dropdown-menu" id="userMenu">
+                    <a href="#" onclick="profile()"> <i class="fas fa-user-circle"></i> Mi perfil</a>
+                    <a href="#" onclick="help()"> <i class="fas fa-question-circle"></i> Ayuda</a>
+                    <a href="#" onclick="logout()"> <i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
+                </div>
+            </div>
+        </header>
+
+        <section class="food-container" id="foodContainer"></section>
+
+        <div id="mapOverlay">
+            <div title="Selecciona tu ubicación" id="mapContainer" class="mapaCuadrado">
+                <button onclick="closeMap()" id="closeMapButton" class="closeContainer">x</button>
+                <div id="map"></div>
+            </div>
+        </div>  
+
+        <script src="/js/main.js"></script>
+        <script src="/js/sesion.js"></script>
+    </body>
+</html>

@@ -1,0 +1,239 @@
+header input[type="text"] {
+    flex: 0 0 auto; /* Evita que el input crezca más allá del tamaño especificado */
+    width: 800px; /* Ajusta el ancho según tus necesidades */
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+}
+
+.tags {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    padding: 15px;
+    background-color: #f4f4f444;
+    border-bottom: 1px solid #f4f4f444;
+}
+
+.tags button {
+    padding: 8px 16px;
+    background-color: #6A1B9A;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.tags button:hover {
+    background-color: #3a0f55;
+}
+
+.food-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content:space-evenly;
+    padding: 20px;
+    padding-top: 60px;
+}
+
+.food-item {
+    width: 200px;
+    margin: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.food-item img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.food-item h3 {
+    margin: 10px 0;
+    font-size: 18px;
+    color: #333;
+}
+
+.food-item p {
+    color: #777;
+    font-size: 14px;
+}
+
+.food-item .price {
+    font-size: 16px;
+    color: #ff6f61;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.add-to-cart-button {
+    background-color: #3a0f55;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.add-to-cart-button:hover {
+    background-color: #218838;
+}
+
+#locationButton {
+    background-color: #6A1B9A;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    font-style: italic;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#locationButton:hover {
+    background-color: white; /* Cambia todo el fondo a blanco */
+    color: black; /* Cambia el color del ícono al pasar el mouse */
+    border-color: white; /* Cambia el contorno a blanco también */
+}
+
+#locationButton:hover i {
+    color: black; /* Cambia el color del ícono al pasar sobre el menú */
+}
+
+#locationButton i {
+    margin-right: 5px;
+    transition: color 0.3s ease;
+}
+
+#coordinates {
+    display: none;
+    font-size: 12px;
+    color: #fff;
+}
+
+.cart {
+    display: flex;
+    align-items: center;
+    position: relative;
+    margin-left: 1rem;
+    cursor: pointer;
+}
+
+.cart i {
+    font-size: 1.5rem;
+    color: #000000;
+}
+
+#cartCount {
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    background: red;
+    color: white;
+    font-size: 0.9rem;
+    padding: 2px 6px;
+    border-radius: 50%;
+    font-weight: bold;
+}
+
+.map-color {
+    color: #fff;
+}
+
+.mapaCuadrado {
+    display: none; 
+    height: 50%; 
+    width: 25%; 
+    position: fixed; 
+    top: 50%; 
+    left: 50%; 
+    z-index: 9999; 
+    background-color: white; 
+    border-radius: 20px;
+    border-color: #333; 
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.closeContainer {
+    position: absolute; 
+    top: 2%; 
+    right: 2%; 
+    background-color: rgb(255, 255, 255); 
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
+    border-radius: 50%; 
+    padding: 2% 4%; 
+    cursor: pointer; 
+    font-size: 18px;
+    z-index: 9999;
+}
+
+#mapContainer {
+    display:flex;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1001;
+    background-color: black;
+    border-radius: 50%;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.3);
+    overflow: visible;
+    opacity: 0;
+    animation: fadeIn 0.3s ease-out forwards;
+}
+
+#map {
+    overflow: hidden;
+    height: 100%; 
+    width: 100%;
+}
+
+#mapOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
+    display: none; /* Oculto por defecto */
+    z-index: 1000; /* Asegúrate de que esté por encima de todos los elementos */
+}
+
+.leaflet-control-zoom {
+    position: absolute; /* Asegura que los controles estén dentro del mapa */
+    top: 10%; /* Posición razonable, 10% desde la parte superior del mapa */
+    left: 10%; /* Opcional, posición inicial desde la izquierda */
+    transform: translate(0, 0); /* Elimina el desplazamiento innecesario */
+    z-index: 9998; /* Asegura que los controles estén por encima del mapa */
+    border-radius: 5px; /* Puedes ajustar para eliminar el efecto circular */
+}
+
+.leaflet-control-zoom-in, .leaflet-control-zoom-out {
+    background-color: rgba(255, 255, 255, 0.8); /* Fondo blanco semi-transparente */
+    border-radius: 5px; /* Esquinas ligeramente redondeadas */
+    width: 40px; /* Tamaño del botón */
+    height: 40px;
+    font-size: 18px; /* Tamaño del icono */
+    text-align: center;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); /* Sombra para mejor visibilidad */
+}
+
+.leaflet-control-zoom-in:hover, .leaflet-control-zoom-out:hover {
+    background-color: rgba(255, 255, 255, 1); /* Cambia el fondo al pasar el mouse */
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}

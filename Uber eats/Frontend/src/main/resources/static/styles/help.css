@@ -1,0 +1,23 @@
+.help-container {
+    text-align: center;
+    
+}
+
+.help-card {
+    text-align: center; /* Centra los elementos dentro de la tarjeta */
+    margin-top: 50px; /* Ajusta el margen superior según sea necesario */
+}
+  
+#logo-picture {
+    border-radius: 50%; /* Hace la imagen circular */
+    width: 500px; /* Ajusta el tamaño según sea necesario */
+    height: 500px;
+    margin-bottom: 20px;
+}
+
+.correo-fei {
+    padding-top: 60px; 
+    color:rgb(62, 2, 85); 
+    font-weight: bold; 
+    font-size: 30px;
+}

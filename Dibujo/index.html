@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de Dibujo</title>
+    <style>
+        canvas {
+            border: 1px solid black;
+            cursor: crosshair;
+        }
+        #toolbar {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="toolbar">
+        <button onclick="setFigura('rectangulo')">Rectángulo</button>
+        <button onclick="setFigura('circulo')">Círculo</button>
+        <button onclick="setFigura('triangulo')">Triángulo</button>
+        <button onclick="setFigura('linea')">Línea</button>
+        <br><br>
+        <label for="colorLinea">Color de Línea:</label>
+        <input type="color" id="colorLinea" value="#000000">
+        <label for="colorFondo">Color de Fondo:</label>
+        <input type="color" id="colorFondo" value="#ffffff">
+        <br><br>
+        <label for="grosorLinea">Grosor de Línea:</label>
+        <input type="range" id="grosorLinea" min="1" max="10" value="1" oninput="mostrarGrosor(this.value)">
+        <span id="valorGrosor">1</span> px
+        <br><br>
+        <button onclick="deshacer()">Deshacer</button>
+        <button onclick="rehacer()">Rehacer</button>
+        <button onclick="guardarLienzo()">Guardar Lienzo</button>
+        <select id="lienzosGuardados" onchange="cargarLienzo()"></select>
+    </div>
+    <canvas id="lienzo" width="800" height="600"></canvas>
+
+    <script>
+        const canvas = document.getElementById('lienzo');
+        const ctx = canvas.getContext('2d');
+        let figuraActual = 'rectangulo';
+        let dibujando = false;
+        let startX, startY;
+        let historial = [];
+        let indiceHistorial = -1;
+
+        function setFigura(figura) {
+            figuraActual = figura;
+        }
+
+        function mostrarGrosor(valor) {
+            document.getElementById('valorGrosor').textContent = valor;
+        }
+
+        canvas.addEventListener('mousedown', iniciarDibujo);
+        canvas.addEventListener('mousemove', previsualizarDibujo);
+        canvas.addEventListener('mouseup', finalizarDibujo);
+
+        function iniciarDibujo(e) {
+            dibujando = true;
+            [startX, startY] = [e.offsetX, e.offsetY];
+        }
+
+        function previsualizarDibujo(e) {
+            if (!dibujando) return;
+
+            const [endX, endY] = [e.offsetX, e.offsetY];
+            const img = new Image();
+            img.onload = function () {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.drawImage(img, 0, 0);
+
+                ctx.beginPath();
+                ctx.strokeStyle = document.getElementById('colorLinea').value;
+                ctx.fillStyle = document.getElementById('colorFondo').value;
+                ctx.lineWidth = document.getElementById('grosorLinea').value;
+
+                switch (figuraActual) {
+                    case 'rectangulo':
+                        ctx.rect(startX, startY, endX - startX, endY - startY);
+                        break;
+                    case 'circulo':
+                        const radio = Math.sqrt(Math.pow(endX - startX, 2) + Math.pow(endY - startY, 2));
+                        ctx.arc(startX, startY, radio, 0, 2 * Math.PI);
+                        break;
+                    case 'triangulo':
+                        ctx.moveTo(startX, startY);
+                        ctx.lineTo(endX, endY);
+                        ctx.lineTo(startX - (endX - startX), endY);
+                        ctx.closePath();
+                        break;
+                    case 'linea':
+                        ctx.moveTo(startX, startY);
+                        ctx.lineTo(endX, endY);
+                        break;
+                }
+
+                if (figuraActual !== 'linea') ctx.fill();
+                ctx.stroke();
+            };
+
+            img.src = historial[indiceHistorial] || canvas.toDataURL();
+        }
+
+        function finalizarDibujo(e) {
+            if (!dibujando) return;
+            dibujando = false;
+
+            const [endX, endY] = [e.offsetX, e.offsetY];
+            ctx.beginPath();
+            ctx.strokeStyle = document.getElementById('colorLinea').value;
+            ctx.fillStyle = document.getElementById('colorFondo').value;
+            ctx.lineWidth = document.getElementById('grosorLinea').value;
+
+            switch (figuraActual) {
+                case 'rectangulo':
+                    ctx.rect(startX, startY, endX - startX, endY - startY);
+                    break;
+                case 'circulo':
+                    const radio = Math.sqrt(Math.pow(endX - startX, 2) + Math.pow(endY - startY, 2));
+                    ctx.arc(startX, startY, radio, 0, 2 * Math.PI);
+                    break;
+                case 'triangulo':
+                    ctx.moveTo(startX, startY);
+                    ctx.lineTo(endX, endY);
+                    ctx.lineTo(startX - (endX - startX), endY);
+                    ctx.closePath();
+                    break;
+                case 'linea':
+                    ctx.moveTo(startX, startY);
+                    ctx.lineTo(endX, endY);
+                    break;
+            }
+
+            if (figuraActual !== 'linea') ctx.fill();
+            ctx.stroke();
+
+            guardarEnHistorial();
+        }
+
+        function guardarEnHistorial() {
+            indiceHistorial++;
+            historial = historial.slice(0, indiceHistorial);
+            historial.push(canvas.toDataURL());
+        }
+
+        function deshacer() {
+            if (indiceHistorial > 0) {
+                indiceHistorial--;
+                cargarDesdeHistorial();
+            }
+        }
+
+        function rehacer() {
+            if (indiceHistorial < historial.length - 1) {
+                indiceHistorial++;
+                cargarDesdeHistorial();
+            }
+        }
+
+        function cargarDesdeHistorial() {
+            const img = new Image();
+            img.onload = function () {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.drawImage(img, 0, 0);
+            };
+            img.src = historial[indiceHistorial];
+        }
+
+        function guardarLienzo() {
+            const nombre = prompt("Ingrese un nombre para el lienzo:");
+            if (nombre) {
+                const lienzos = JSON.parse(localStorage.getItem('lienzos') || '{}');
+                lienzos[nombre] = canvas.toDataURL();
+                localStorage.setItem('lienzos', JSON.stringify(lienzos));
+                actualizarListaLienzos();
+            }
+        }
+
+        function cargarLienzo() {
+            const select = document.getElementById('lienzosGuardados');
+            const nombre = select.value;
+            if (nombre) {
+                const lienzos = JSON.parse(localStorage.getItem('lienzos') || '{}');
+                const img = new Image();
+                img.onload = function () {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    ctx.drawImage(img, 0, 0);
+                    guardarEnHistorial();
+                };
+                img.src = lienzos[nombre];
+            }
+        }
+
+        function actualizarListaLienzos() {
+            const select = document.getElementById('lienzosGuardados');
+            select.innerHTML = '<option value="">Seleccione un lienzo</option>';
+            const lienzos = JSON.parse(localStorage.getItem('lienzos') || '{}');
+            for (const nombre in lienzos) {
+                const option = document.createElement('option');
+                option.value = nombre;
+                option.textContent = nombre;
+                select.appendChild(option);
+            }
+        }
+
+        actualizarListaLienzos();
+    </script>
+</body>
+</html>
